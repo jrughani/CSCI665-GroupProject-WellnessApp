@@ -1,40 +1,68 @@
-<div>
-  <main id="large-recipe-section"></main>
+<div id="main-container">
+  <div id="large-recipe-container">
+    <main id="large-recipe-section" *ngFor="let randomMeal of randomMeals">
+      <a [href]="randomMeal.spoonacularSourceUrl">
+        <section
+          class="random-meals"
+          [style.backgroundImage]="
+            'url(' +
+            randomMeal.image +
+            '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
+          "
+        >
+          <!-- <a [href]="randomMeal.spoonacularSourceUrl">
+          <object
+            data="http://stackoverflow.com/does-not-exist.png"
+            type="image/png"
+          >
+            <img [src]="randomMeal.image" alt="" />
+          </object>
+        </a> -->
+          <article>
+            <h2>{{ randomMeal.title }}</h2>
 
-  <h1>Meal-Planning (testing)</h1>
-  <main id="mealplan-section">
-    <section>
-      <article class="planning-row">
-        <p>
-          Planning for a
-          <button>day</button>
-          or a
-          <button>week</button>
-          ?
-        </p>
-      </article>
-      <hr />
-      <article class="target-calorie-row">
-        <input class="calorie-input" type="numbers" placeholder="" />
-        <p>is my target calorie goal</p>
-      </article>
-      <hr />
-      <article class="diet-col">
-        <select class="diet-dropdown" name="" id="">
-          <option value="vegetarian">Vegetarian</option>
-          <option value="vegetarian">Vegetarian</option>
-        </select>
-        <p class="diet-sub">is my diet type</p>
-        <p>and my allergens include:</p>
-        <input
-          class="allergen-input"
-          type="text"
-          placeholder="Enter allergens separated by a comma"
-        />
-      </article>
+            <h3>{{ randomMeal.servings }} serving(s)</h3>
+          </article>
+        </section>
+      </a>
+    </main>
+  </div>
+
+  <div id="mealplan-container">
+    <main id="mealplan-section">
+      <section>
+        <article class="planning-row">
+          <p>
+            Planning for a
+            <button>day</button>
+            or a
+            <button>week</button>
+            ?
+          </p>
+        </article>
+        <hr />
+        <article class="target-calorie-row">
+          <input class="calorie-input" type="numbers" placeholder="" />
+          <p>is my target calorie goal</p>
+        </article>
+        <hr />
+        <article class="diet-col">
+          <select class="diet-dropdown" name="" id="">
+            <option value="vegetarian">Vegetarian</option>
+            <option value="vegetarian">Vegetarian</option>
+          </select>
+          <p class="diet-sub">is my diet type</p>
+          <p>and my allergens include:</p>
+          <input
+            class="allergen-input"
+            type="text"
+            placeholder="Enter allergens separated by a comma"
+          />
+        </article>
+      </section>
+    </main>
+    <section class="generate-row">
+      <button class="generate-button">Generate Meal Plan</button>
     </section>
-  </main>
-  <section class="generate-row">
-    <button class="generate-button">Generate Meal Plan</button>
-  </section>
+  </div>
 </div>

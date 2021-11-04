@@ -2,6 +2,10 @@
     padding: 0;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+ 
+}
+body {
+    height: 100vh;
 }
 
 h1 {
@@ -18,8 +22,79 @@ hr {
     margin: 12px;
 }
 
+
+#main-container {
+margin-top: 1vw;
+ display: flex;
+ flex-flow: row;
+}
+
+
+#large-recipe-container {
+   display: flex;
+   flex-flow: row;
+   flex: 2;
+}
+
+
+#large-recipe-section {
+flex: 1;
+}
+
+#large-recipe-section a {
+    flex: 1;
+    text-decoration: none;
+    }
+    
+
+.random-meals {
+   
+    border-radius: 1vw;
+    display: flex;
+    flex: 1;
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-blend-mode: overlay;
+    justify-content: center;
+}
+
+.random-meals article {
+    align-self: flex-end;
+}
+
+.random-meals h2 {
+    font-family: 'Satisfy', cursive;
+    font-size: 42px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px rgb(0 0 0);
+}
+
+.random-meals h3 {
+    font-size: 21px;
+    color: white;
+    text-align: start;
+}
+
+
+
+/* #large-recipe-section img {
+    height: 100%;
+    width: 33%;
+} */
+
+#mealplan-container {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+}
+
 #mealplan-section {
-    margin-top: 1vw;
     background-color: #FF9D48;
     color: white;
     font-size: 21px;
