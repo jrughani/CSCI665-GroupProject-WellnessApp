@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "wellnessapp-70b5c": {
+      "hosting": {
+        "wellness": [
+          "wellnessapp-70b5c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "wellnessapp-70b5c"
+  }
+}
