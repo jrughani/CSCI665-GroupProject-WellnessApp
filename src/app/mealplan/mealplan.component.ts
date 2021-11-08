@@ -30,6 +30,10 @@ export class MealplanComponent implements OnInit {
    
   }
 
+  ngOnChanges(){
+    console.log("test")
+  }
+
   ngOnInit() {
     
     console.log(this.timeFrame)

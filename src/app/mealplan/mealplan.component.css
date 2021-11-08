@@ -208,10 +208,18 @@ border-right: 6px solid white;
 .generate-button {
     flex: 1;
     font-size: 42px;
+    color: #ffffff;
+    background-color: #FF9D48;
+    border: 2px solid #FF9D48;
+    border-radius: 2vw;
+    padding: .5vw 2vw;
+    transition: all 1s ease;
+}
+
+button:disabled {
     color: #FF9D48;
     background-color: #ffffff;
     border: 2px solid #FF9D48;
-    border-radius: 2vw;
-    padding: .5vw 2vw 
+    transition: all 1s ease;
 }
 

@@ -86,7 +86,12 @@
       </section>
     </main>
     <section class="generate-row">
-      <button (click)="getMealPlan()" class="generate-button">
+      <button
+        type="submit"
+        [disabled]="!calorieGoal || !timeFrame || !dietPlan"
+        (click)="getMealPlan()"
+        class="generate-button"
+      >
         Generate Meal Plan
       </button>
     </section>
