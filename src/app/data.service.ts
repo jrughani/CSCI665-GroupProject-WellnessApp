@@ -5,11 +5,17 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class DataService {
+  
 
   constructor(private http: HttpClient) { }
 
+  // getTimeFrame(e, timeFrame: string): string {
+  //   timeFrame = e.innerHTML
+  //   return timeFrame
+  // }
+
   getRandomMeals() {
-    return this.http.get("https://api.spoonacular.com/recipes/random?number=3&apiKey=2748398f60524fc090d89b2009c9e4a1").toPromise().then((data) => {
+    return this.http.get("https://api.spoonacular.com/recipes/random?number=3&apiKey=3648a4ecfed843ffbf5d22382057b7a6").toPromise().then((data) => {
       return data
     })
   }
@@ -19,5 +25,7 @@ export class DataService {
       return data
     })
   }
+
+
   
 }

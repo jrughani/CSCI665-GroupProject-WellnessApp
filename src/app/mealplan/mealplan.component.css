@@ -121,7 +121,7 @@ border-right: 6px solid white;
     padding: .5vw 2vw 
 }
 
-.planning-row button {
+.radio {
     font-size: 21px;
     color: white;
     background-color: #FF9D48;
@@ -129,6 +129,14 @@ border-right: 6px solid white;
     border-radius: 2vw;
     padding: .5vw 2vw 
 }
+
+
+.active {
+    background-color: #ffffff;
+    color: #FF9D48;
+}
+
+
 
 .calorie-input {
     color: white;
@@ -206,3 +214,4 @@ border-right: 6px solid white;
     border-radius: 2vw;
     padding: .5vw 2vw 
 }
+
