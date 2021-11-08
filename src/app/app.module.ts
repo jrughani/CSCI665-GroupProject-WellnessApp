@@ -12,6 +12,10 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
 
@@ -19,7 +23,11 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
   declarations: [
     AppComponent,
     DashboardComponent,
-    MealplanComponent
+    MealplanComponent,
+    SignupComponent,
+    SigninComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
