@@ -8,13 +8,13 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
-import { AuthGuard } from './services/auth.guard';
+//import { AuthGuard } from './services/auth.guard';
 
 
 const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  {path: 'dashboard', component: DashboardComponent },//canActivate: [AuthGuard] user can only view dashboard once logged in
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'signin', component: SigninComponent },

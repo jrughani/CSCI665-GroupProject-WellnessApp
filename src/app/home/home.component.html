@@ -4,10 +4,11 @@
     </section>
     <div>
       <ul>
-        <li><button>Sign-in</button></li>
+        <li><button routerLink="/signin">Sign-in</button></li>
         <li><button routerLink="/signup">Sign-up</button></li>
-        <li><button>Forgot password</button></li>
-        <li><button>Verify email</button></li>
+        <li><button routerLink="/forgot-password">Forgot password</button></li>
+        <li><button routerLink="/verify-email">Verify email</button></li>
+        <li><button (click)="onSignout()" >Signout</button></li>
       </ul>
     </div>
   </main>

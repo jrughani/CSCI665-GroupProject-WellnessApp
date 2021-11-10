@@ -21,7 +21,7 @@ export class AuthService {
 }
 SignIn(email: string, password: string): Promise<any>{
   return this.fAuth.signInWithEmailAndPassword(email, password).then(() => {
-                console.log('Auth Service: loginUser: success');
+                console.log('loginUser: success');
                 // this.router.navigate(['/dashboard']);
             }).catch(error => {
                 console.log('login error...');
@@ -86,7 +86,6 @@ resetPassword(email: string): Promise<any> {
     return this.fAuth.sendPasswordResetEmail(email)
         .then(() => {
             console.log('reset password success');
-            // this.router.navigate(['/amount']);
         })
         .catch(error => {
             console.log('reset password error...');

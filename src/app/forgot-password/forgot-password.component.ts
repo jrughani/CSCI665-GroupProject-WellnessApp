@@ -13,12 +13,10 @@ import { FormGroup,FormsModule, FormControl, Validators, ReactiveFormsModule } f
 export class ForgotPasswordComponent implements OnInit {
   userEmail: FormGroup;
   mailSent: boolean;
-  //isProgressVisible: boolean;
   firebaseErrorMessage: string;
 
   constructor(private authService: AuthService, private router: Router, private fAuth: AngularFireAuth) {
     this.mailSent = false;
-    //this.isProgressVisible = false;
 
     this.userEmail = new FormGroup({
         'email': new FormControl('', [Validators.required, Validators.email])
@@ -29,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.fAuth.authState.subscribe(user => {               // if the user is logged in, update the form value with their email address
+    this.fAuth.authState.subscribe(user => {               
       if (user) {
           this.userEmail.patchValue({
               email: user.email
@@ -43,14 +41,15 @@ export class ForgotPasswordComponent implements OnInit {
             return;
     }
     this.authService.resetPassword(this.userEmail.value.email).then((result) => {
-      //this.isProgressVisible = false;                     // no matter what, when the auth service returns, we hide the progress indicator
-      if (result == null) {                               // null is success, false means there was an error
+      if (result == null) {                               
           console.log('password reset email sent...');
+          alert('password reset email sent...');
           this.mailSent = true;
           // this.router.navigate(['/dashboard']);        // when the user is logged in, navigate them to dashboard
       }
       else if (result.isValid == false) {
           console.log('login error', result);
+          alert('password reset error. try again later');
           this.firebaseErrorMessage = result.message;
       }
   });

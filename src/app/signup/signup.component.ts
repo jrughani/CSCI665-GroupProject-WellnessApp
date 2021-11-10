@@ -9,12 +9,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  //isProgressVisible: boolean;
   signupForm: FormGroup;
   firebaseErrorMessage: string;
 
   constructor(private authService: AuthService, private router: Router, private fAuth: AngularFireAuth) {
-    //this.isProgressVisible = false;
     this.firebaseErrorMessage = '';
 }
 
@@ -36,14 +34,16 @@ export class SignupComponent implements OnInit {
     }
     
     this.authService.Signup(this.signupForm.value).then((result) => {
-            if (result == null)                                 
+            if (result == null) {                              
                 this.router.navigate(['/dashboard']);
-            else if (result.isValid == false)
+                alert('Success. Please verify your email');
+              }
+            else if (result.isValid == false){
                 this.firebaseErrorMessage = result.message;
+                alert('Firebase error '+ this.firebaseErrorMessage);
+              }
 
-            //this.isProgressVisible = false;                    
         }).catch(() => {
-            //this.isProgressVisible = false;
         });
 
 
