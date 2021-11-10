@@ -26,7 +26,7 @@ SignIn(email: string, password: string): Promise<any>{
             }).catch(error => {
                 console.log('login error...');
                 console.log('error', error);
-                if (error.code)
+                //if (error.code)
                     return { isValid: false, message: error.message };
             });
 }
@@ -35,14 +35,14 @@ Signup(user: any): Promise<any> {
           let email = user.email.toLowerCase();
           this.fireStore.doc('/users/' + email)                        
               .set({
-                  displayName: user.displayName,
+                  userName: user.userName,
                   email: email                 
               });
               result.user.sendEmailVerification();                    
       }).catch(error => {
           console.log('signup error', error);
           console.log('error', error);
-          if (error.code)
+          //if (error.code)
               return { isValid: false, message: error.message };
       });
 }

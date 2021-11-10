@@ -11,7 +11,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { MealplanComponent } from './mealplan/mealplan.component';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -40,6 +40,7 @@ import { HomeComponent } from './home/home.component'
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule,                            
     AngularFireDatabaseModule,

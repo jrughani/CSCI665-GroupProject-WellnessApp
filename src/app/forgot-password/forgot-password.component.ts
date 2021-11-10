@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
+import { FormGroup,FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms'
 
 
 @Component({
@@ -58,5 +58,5 @@ export class ForgotPasswordComponent implements OnInit {
     
     
   }
-
+}
 
