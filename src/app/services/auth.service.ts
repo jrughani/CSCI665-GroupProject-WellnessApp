@@ -32,13 +32,13 @@ SignIn(email: string, password: string): Promise<any>{
 }
 Signup(user: any): Promise<any> {
   return this.fAuth.createUserWithEmailAndPassword(user.email, user.password).then((result) => {
-          let emailLower = user.email.toLowerCase();
-          this.fireStore.doc('/users/' + emailLower)                        // on a successful signup, create a document in 'users' collection with the new user's info
+          let email = user.email.toLowerCase();
+          this.fireStore.doc('/users/' + email)                        
               .set({
                   displayName: user.displayName,
-                  email: emailLower                 
+                  email: email                 
               });
-              result.user.sendEmailVerification();                    // immediately send the user a verification email
+              result.user.sendEmailVerification();                    
       }).catch(error => {
           console.log('signup error', error);
           console.log('error', error);
@@ -46,6 +46,56 @@ Signup(user: any): Promise<any> {
               return { isValid: false, message: error.message };
       });
 }
+async resendVerificationEmail() {                         
+  return (await this.fAuth.currentUser).sendEmailVerification()
+      .then(() => {
+          // this.router.navigate(['home']);
+      })
+      .catch(error => {
+          console.log('sendVerificationEmail error...');
+          console.log('error', error);
+          if (error.code)
+              return error;
+      });
+}
+
+logoutUser(): Promise<void> {
+  return this.fAuth.signOut().then(() => {
+          this.router.navigate(['/home']);                    
+      }).catch(error => {
+          console.log('logout error...');
+          console.log('error', error);
+          if (error.code)
+              return error;
+      });
+}
+setUserInfo(payload: object) {
+  console.log('saving user info...');
+  this.fireStore.collection('users')
+      .add(payload).then(function (res) {
+          console.log("setUserInfo response...")
+          console.log(res);
+      })
+}
+
+getUser() {
+  return this.fAuth.currentUser;                                 
+}
+
+resetPassword(email: string): Promise<any> {
+    return this.fAuth.sendPasswordResetEmail(email)
+        .then(() => {
+            console.log('reset password success');
+            // this.router.navigate(['/amount']);
+        })
+        .catch(error => {
+            console.log('reset password error...');
+            console.log(error)
+            if (error.code)
+                return error;
+        });
+}
+
 
 
 
