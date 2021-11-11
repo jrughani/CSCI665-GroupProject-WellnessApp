@@ -112,14 +112,14 @@
 }
 
 .recipe-sub {
-    margin: 0 1vw;
+    padding: 0 1vw;
     background-color: #FF9D48;
 }
 
 .recipe-sub h2 {
     color: white;
     
-    margin-left: 1vw;
+   
     padding: 1vw 0;
 }
         
