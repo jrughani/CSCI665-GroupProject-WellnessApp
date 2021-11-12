@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class MealplanComponent implements OnInit {
 
+  apiKey:string="f54682d328d44737904ba650a1de23e4";
   // Results from get request
   results: any;
   // Meal json
@@ -25,9 +26,14 @@ export class MealplanComponent implements OnInit {
   allergens:any;
   timeFrame:string="week";
 
+  // Mealplan
+  isMealPlan:any;
+  mealPlan:any;
+  mealList:any;
+  mealPlanInfo: any=[];
 
   constructor(private service: DataService, private http: HttpClient) {
-   
+    this.isMealPlan = false
   }
 
   ngOnChanges(){
@@ -80,12 +86,29 @@ export class MealplanComponent implements OnInit {
 
 
   generateMealPlan() {
-    return this.http.get(`https://api.spoonacular.com/mealplanner/generate?timeFrame=${this.timeFrame}?targetCalories=${this.calorieGoal}?diet=${this.dietPlan}?exclude=${this.allergens}&apiKey=3648a4ecfed843ffbf5d22382057b7a6`).toPromise().then((data) => {
-    console.log(data)  
-    return data
+    return this.http.get(`https://api.spoonacular.com/mealplanner/generate?timeFrame=${this.timeFrame}?targetCalories=${this.calorieGoal}?diet=${this.dietPlan}?exclude=${this.allergens}&apiKey=${this.apiKey}`).toPromise().then((data) => {
+    this.mealPlan=data
+    this.mealList = this.mealPlan.meals.map((recipe:any)=> recipe.id)
+
+    console.log(this.mealList)
+    this.getMealPlanInfo(this.mealList)
+    
     })
   }
 
+  async getMealPlanInfo(mealPlan) {
+    console.log(mealPlan)
+    this.isMealPlan = true;
+    return mealPlan.map((meal:any) => 
+    this.http.get(`https://api.spoonacular.com/recipes/${meal}/information?includeNutrition=true&apiKey=${this.apiKey}`).toPromise().then((data) => {
+    console.log(data)
+    this.mealPlanInfo.push(data)
+    console.log(this.mealPlanInfo)
+  }))
 
+  //  var test = this.mealPlanInfo.map((recipe:any)=> recipe.aggregateLikes)
+  //  console.log(test)
+
+  }
 
 }

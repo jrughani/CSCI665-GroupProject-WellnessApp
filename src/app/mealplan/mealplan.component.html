@@ -97,3 +97,62 @@
     </section>
   </div>
 </div>
+
+<div *ngIf="isMealPlan; else none" id="meal-container">
+  <div id="overlay-background"></div>
+  <div id="generated-mealplan-bordering">
+    <div id="title-container">
+      <section id="title-left">
+        <h1>Your Generated Mealplan</h1>
+      </section>
+      <section id="title-right">
+        <h1 id="close">x</h1>
+      </section>
+    </div>
+    <div id="generated-mealplan-container">
+      <main
+        id="generated-mealplan-section"
+        *ngFor="let planInfo of mealPlanInfo"
+      >
+        <a [href]="planInfo.spoonacularSourceUrl">
+          <section
+            class="random-meals"
+            [style.backgroundImage]="
+              'url(' +
+              planInfo.image +
+              '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
+            "
+          >
+            <article>
+              <h2>{{ planInfo.title }}</h2>
+
+              <h3>{{ planInfo.servings }} serving(s)</h3>
+            </article>
+          </section>
+        </a>
+      </main>
+    </div>
+
+    <div id="title-container">
+      <section class="mealplan-subtitle">
+        <h1>Breakfast</h1>
+      </section>
+      <section class="mealplan-subtitle">
+        <h1>Lunch</h1>
+      </section>
+      <section class="mealplan-subtitle">
+        <h1>Dinner</h1>
+      </section>
+    </div>
+
+    <!-- <main>
+      test
+      <h1 *ngFor="let info of mealPlanInfo">
+        {{ info.aggregateLikes }}
+      </h1>
+    </main> -->
+  </div>
+</div>
+<ng-template #none>
+  Please generate meal plan
+</ng-template>
