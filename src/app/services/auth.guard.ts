@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
             if (user) {
                 resolve(true);
             } else {
-                console.log('user not signed in, redirected to home');
+                alert('user not signed in, redirected to home');
                 this.router.navigate(['/home']);  
                 resolve(false);
             }
