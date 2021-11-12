@@ -30,6 +30,7 @@ export class MealplanComponent implements OnInit {
   isMealPlan:any;
   mealPlan:any;
   mealList:any;
+  mealPlanNutrients:any;
   mealPlanInfo: any=[];
 
   constructor(private service: DataService, private http: HttpClient) {
@@ -88,6 +89,8 @@ export class MealplanComponent implements OnInit {
   generateMealPlan() {
     return this.http.get(`https://api.spoonacular.com/mealplanner/generate?timeFrame=${this.timeFrame}?targetCalories=${this.calorieGoal}?diet=${this.dietPlan}?exclude=${this.allergens}&apiKey=${this.apiKey}`).toPromise().then((data) => {
     this.mealPlan=data
+    this.mealPlanNutrients = this.mealPlan.nutrients
+    console.log(this.mealPlanNutrients)
     this.mealList = this.mealPlan.meals.map((recipe:any)=> recipe.id)
 
     console.log(this.mealList)
@@ -101,7 +104,6 @@ export class MealplanComponent implements OnInit {
     this.isMealPlan = true;
     return mealPlan.map((meal:any) => 
     this.http.get(`https://api.spoonacular.com/recipes/${meal}/information?includeNutrition=true&apiKey=${this.apiKey}`).toPromise().then((data) => {
-    console.log(data)
     this.mealPlanInfo.push(data)
     console.log(this.mealPlanInfo)
   }))
@@ -109,6 +111,15 @@ export class MealplanComponent implements OnInit {
   //  var test = this.mealPlanInfo.map((recipe:any)=> recipe.aggregateLikes)
   //  console.log(test)
 
+  }
+
+  closeMealPlan() {
+    this.isMealPlan = false;
+    this.mealPlanInfo = []
+  }
+
+  getLike() {
+    console.log("test")
   }
 
 }

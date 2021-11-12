@@ -10,22 +10,26 @@
 <div id="main-container">
   <div id="large-recipe-container">
     <main id="large-recipe-section" *ngFor="let randomMeal of randomMeals">
-      <a [href]="randomMeal.spoonacularSourceUrl">
-        <section
-          class="random-meals"
-          [style.backgroundImage]="
-            'url(' +
-            randomMeal.image +
-            '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
-          "
-        >
-          <article>
+      <section
+        class="random-meals"
+        [style.backgroundImage]="
+          'url(' +
+          randomMeal.image +
+          '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
+        "
+      >
+        <aside class="heart-container">
+          <button (click)="getLike()" class="heart-button">
+            <img class="heart-img" src="/assets/img/heart.svg" alt="" />
+          </button>
+        </aside>
+        <article>
+          <a [href]="randomMeal.spoonacularSourceUrl">
             <h2>{{ randomMeal.title }}</h2>
-
-            <h3>{{ randomMeal.servings }} serving(s)</h3>
-          </article>
-        </section>
-      </a>
+          </a>
+          <h3>{{ randomMeal.servings }} serving(s)</h3>
+        </article>
+      </section>
     </main>
   </div>
 
@@ -106,30 +110,35 @@
         <h1>Your Generated Mealplan</h1>
       </section>
       <section id="title-right">
-        <h1 id="close">x</h1>
+        <h1 (click)="closeMealPlan()" id="close">x</h1>
       </section>
     </div>
+
     <div id="generated-mealplan-container">
       <main
         id="generated-mealplan-section"
         *ngFor="let planInfo of mealPlanInfo"
       >
-        <a [href]="planInfo.spoonacularSourceUrl">
-          <section
-            class="random-meals"
-            [style.backgroundImage]="
-              'url(' +
-              planInfo.image +
-              '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
-            "
-          >
-            <article>
+        <section
+          class="random-meals"
+          [style.backgroundImage]="
+            'url(' +
+            planInfo.image +
+            '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
+          "
+        >
+          <aside class="heart-container">
+            <button (click)="getLike()" class="heart-button">
+              <img class="heart-img" src="/assets/img/heart.svg" alt="" />
+            </button>
+          </aside>
+          <article>
+            <a [href]="planInfo.spoonacularSourceUrl">
               <h2>{{ planInfo.title }}</h2>
-
-              <h3>{{ planInfo.servings }} serving(s)</h3>
-            </article>
-          </section>
-        </a>
+            </a>
+            <h3>{{ planInfo.servings }} serving(s)</h3>
+          </article>
+        </section>
       </main>
     </div>
 
@@ -151,6 +160,17 @@
         {{ info.aggregateLikes }}
       </h1>
     </main> -->
+  </div>
+
+  <div id="mealplan-nutrients">
+    <section>
+      <p>{{ mealPlanNutrients.calories }} calories</p>
+      <p>{{ mealPlanNutrients.carbohydrates }} carbs</p>
+      <p>{{ mealPlanNutrients.fat }} fat</p>
+      <p>{{ mealPlanNutrients.protein }} protein</p>
+    </section>
+
+    <section></section>
   </div>
 </div>
 <ng-template #none>
