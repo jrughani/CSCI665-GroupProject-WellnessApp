@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+::placeholder {
+    color: #C2C2C2;
+}
+
+/* *** */
+/* home CSS */
+/* home Search button styling */
+#home-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-input {
+    font-size: 21px;
+    text-decoration: none;
+    padding: .5vw 4vw .5vw .5vw;
+    border: 2px solid #FF9D48;
+    border-radius: 1vw;
+    transition: all 1s ease;
+}
+
+.search-input:focus {
+    transition: all 1s ease;
+    outline: none;
+    border: 2px solid #FF6E50;
+}
+
+/* home filter button styling */
+#home-section ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+#home-section button {
+    font-size: 21px;
+    color: white;
+    background-color: #FF9D48;
+    border: 2px solid #FF9D48;
+    border-radius: 1vw;
+    padding: .5vw 2vw 
+}
+/* End of home CSS */
+/* *** */

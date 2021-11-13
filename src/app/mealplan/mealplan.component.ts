@@ -2,6 +2,10 @@ import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormGroup,FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms'
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+
 
 @Component({
   selector: 'app-mealplan',
@@ -33,7 +37,14 @@ export class MealplanComponent implements OnInit {
   mealPlanNutrients:any;
   mealPlanInfo: any=[];
 
-  constructor(private service: DataService, private http: HttpClient) {
+  // User Info
+  user:any;
+  users: any=[];
+  usersList:any=[];
+  userLikes:any=[];
+  userFriends:any=[];
+
+  constructor(private service: DataService, private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
     this.isMealPlan = false
   }
 
@@ -42,6 +53,37 @@ export class MealplanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fAuth.authState.subscribe(user => {   
+      this.user = user            
+      console.log(this.user.email)
+      // Algorithm below fetches user likes
+      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+        ss.docs.forEach((doc) => {
+          this.userLikes.push(doc.data());
+          console.log(this.userLikes)
+        });
+      });
+      // Algorithm below fetches user friends
+      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
+        ss.docs.forEach((doc) => {
+          this.userFriends.push(doc.data());
+          console.log(this.userFriends)
+        });
+      });
+
+      this.fireStore.collection('/users').get().subscribe((ss) => {
+        ss.docs.forEach((email) => {
+          this.usersList.push(email.data());
+        });
+      });
+
+      const shuffled = this.users.sort(() => 0.5 - Math.random());
+      var selected = shuffled.slice(0, 4);
+      console.log(selected)
+      console.log(this.users)
+
+
+  });
     
     console.log(this.timeFrame)
 
@@ -64,10 +106,10 @@ export class MealplanComponent implements OnInit {
     })
 
 
-    this.service.getUsers().then((res) => {
-      this.results = res
-      console.log(this.results)
-    })
+    // this.service.getUsers().then((res) => {
+    //   this.results = res
+    //   console.log(this.results)
+    // })
 
     
   }
@@ -118,8 +160,30 @@ export class MealplanComponent implements OnInit {
     this.mealPlanInfo = []
   }
 
-  getLike() {
-    console.log("test")
+  getLike(e) {
+    console.log(e)
+    let email = this.user.email.toLowerCase();
+    let recipeTitle = e.title;
+
+    this.fireStore.doc('/users/' + email + '/likes/' + recipeTitle)                        
+              .set({
+                id: e.id,
+                title: e.title,
+                image: e.image,
+                servings: e.servings,
+                spoonurl: `https://spoonacular.com/recipes/${e.title.split(' ').join('-')}-${e.id}` ,
+                sourceurl: e.sourceUrl,
+            });
   }
+
+  addFriend(e) {
+    let email = this.user.email.toLowerCase();
+    this.fireStore.doc('/users/' + email + '/friends/' + e.email.toLowerCase())                        
+              .set({
+                email: e.email,
+                username: e.userName,
+            });
+  }
+
 
 }

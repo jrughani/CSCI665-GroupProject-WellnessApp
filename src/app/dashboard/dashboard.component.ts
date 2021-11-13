@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormGroup,FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms'
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,23 +12,39 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  apiKey:string="f54682d328d44737904ba650a1de23e4";
+  apiKey:string="3648a4ecfed843ffbf5d22382057b7a6";
   // Results from get request
   searchQuery:string='';
   searchIngredients:string='';
   recipeList:any;
   recipeLinks:any=[];
   ingredients:any=[];
-
+  user:any=[]
 
   
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) { }
 
   ngOnInit(): void {
+    this.fAuth.authState.subscribe(user => {   
+      this.user = user            
+      console.log(this.user.uid)
+  });
+// Do not use .set because it overwrites everything so please use .update
+  
   }
 
-  generateMealPlan() {
-    
+  fireStoreTest() {
+    console.log(this.user)
+
+    let email = this.user.email.toLowerCase();
+
+    this.fireStore.doc('/users/' + email)                        
+              .update({
+                email:"test@gmail.com",
+                userName:"Patrick Torres",
+                test3:"hi this is patrick5",     
+                     
+              });
   }
 
   setQuery(e) {

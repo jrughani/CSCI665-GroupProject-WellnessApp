@@ -15,7 +15,7 @@ export class DataService {
   // }
 
   getRandomMeals() {
-    return this.http.get("https://api.spoonacular.com/recipes/random?number=3&apiKey=f54682d328d44737904ba650a1de23e4").toPromise().then((data) => {
+    return this.http.get("https://api.spoonacular.com/recipes/random?number=3&apiKey=3648a4ecfed843ffbf5d22382057b7a6").toPromise().then((data) => {
       return data
     })
   }

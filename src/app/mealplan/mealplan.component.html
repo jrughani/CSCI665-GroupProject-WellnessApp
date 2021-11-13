@@ -19,7 +19,7 @@
         "
       >
         <aside class="heart-container">
-          <button (click)="getLike()" class="heart-button">
+          <button (click)="getLike(randomMeal)" class="heart-button">
             <img class="heart-img" src="/assets/img/heart.svg" alt="" />
           </button>
         </aside>
@@ -128,7 +128,7 @@
           "
         >
           <aside class="heart-container">
-            <button (click)="getLike()" class="heart-button">
+            <button (click)="getLike(planInfo)" class="heart-button">
               <img class="heart-img" src="/assets/img/heart.svg" alt="" />
             </button>
           </aside>
@@ -174,5 +174,10 @@
   </div>
 </div>
 <ng-template #none>
+  <div *ngFor="let user of usersList">
+    <p>{{ user.userName }}</p>
+    <button (click)="addFriend(user)">add friend</button>
+  </div>
+
   Please generate meal plan
 </ng-template>

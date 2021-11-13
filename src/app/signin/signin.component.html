@@ -1,0 +1,19 @@
+<p>signin </p>
+<div class="container-fluid">
+    <form [formGroup]="signinForm">
+    
+      <h3>Enter your information below</h3>
+      
+      <div class="form-group">
+        <label>Primary Email:</label>
+        <input type="email" class="form-control" formControlName="email" />
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" class="form-control" formControlName="password" />
+      </div>
+    
+    </form>
+    <button (click)="onSignin()">Signup</button>
+    
+</div>
