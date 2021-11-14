@@ -171,7 +171,7 @@ export class MealplanComponent implements OnInit {
     this.fireStore.doc('/users/' + email + '/friends/' + e.email.toLowerCase())                        
               .set({
                 email: e.email,
-                username: e.userName,
+                userName: e.userName,
             });
   }
 

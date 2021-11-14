@@ -5,6 +5,22 @@
  
 }
 
+  div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #FF9D48;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+  
+  div::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+  
+  div::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    -webkit-box-shadow: inset 0 0 6px #FF9D48;
+    background-color: #FF9D48;
+  }
 body {
     height: 100vh;
 }
@@ -345,6 +361,13 @@ button:disabled {
 #close {
     text-align: end;
     border: none;
+}
+
+#full-friend-container {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
 }
 
 #friendlist-container-title {

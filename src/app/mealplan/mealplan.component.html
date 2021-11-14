@@ -111,29 +111,53 @@
     </main>
   </div>
 
-  <div id="friendlist-container-title">
-    <section id="title">
-      <h1>Suggested Friends</h1>
-    </section>
-    <div id="friendlist-container">
-      <main id="friendlist-inner">
-        <section
-          (click)="addFriend(user)"
-          class="friendlist-item"
-          *ngFor="let user of usersList"
-        >
-          <button class="add-button">
-            <p class="user-name">{{ user.userName }}</p>
-            <div>
-              <img
-                class="user-avi"
-                src="/assets/img/defaultAvatar.svg"
-                alt=""
-              />
-            </div>
-          </button>
-        </section>
-      </main>
+  <div id="full-friend-container">
+    <div id="friendlist-container-title">
+      <section id="title">
+        <h1>Friends List</h1>
+      </section>
+      <div id="friendlist-container">
+        <main id="friendlist-inner">
+          <section class="friendlist-item" *ngFor="let user of userFriends">
+            <button class="add-button">
+              <p class="user-name">{{ user.userName }}</p>
+              <div>
+                <img
+                  class="user-avi"
+                  src="/assets/img/defaultAvatar.svg"
+                  alt=""
+                />
+              </div>
+            </button>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="friendlist-container-title">
+      <section id="title">
+        <h1>Suggested Friends</h1>
+      </section>
+      <div id="friendlist-container">
+        <main id="friendlist-inner">
+          <section
+            (click)="addFriend(user)"
+            class="friendlist-item"
+            *ngFor="let user of usersList"
+          >
+            <button class="add-button">
+              <p class="user-name">{{ user.userName }}</p>
+              <div>
+                <img
+                  class="user-avi"
+                  src="/assets/img/defaultAvatar.svg"
+                  alt=""
+                />
+              </div>
+            </button>
+          </section>
+        </main>
+      </div>
     </div>
   </div>
 </div>
