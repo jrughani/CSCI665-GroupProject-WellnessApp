@@ -33,6 +33,17 @@ a {
     flex-flow: row;
 }
 
+#title {
+    border: 1px solid #FF9D48;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title h1 {
+    margin: 0;
+}
+
 #title-left {
     flex: 2;
 }
@@ -59,6 +70,13 @@ margin-top: 1vw;
 }
 
 
+#sub-container {
+    margin-top: 1vw;
+     display: flex;
+     flex-flow: row;
+    }
+    
+
 
 
 #large-recipe-container {
@@ -67,10 +85,21 @@ margin-top: 1vw;
    flex: 2;
 }
 
+#sub-recipe-container {
+    display: flex;
+    flex-flow: row;
+    flex: 2;
+ }
+ 
 
 #large-recipe-section {
 flex: 1;
 border-right: 6px solid white;
+}
+
+#sub-recipe-section {
+    flex: 1;
+    border-right: 6px solid white;
 }
 
 #large-recipe-section a {
@@ -317,3 +346,64 @@ button:disabled {
     text-align: end;
     border: none;
 }
+
+#friendlist-container-title {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+}
+
+#friendlist-container {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    border: 1px solid #FF9D48;
+}
+
+#friendlist-inner {
+    padding: 1vw 0;
+    display: flex;
+    flex-flow: row;
+
+}
+
+.friendlist-item {
+margin: auto;
+position: relative;
+}
+
+.user-name {
+  position: absolute;
+  font-size: 1vw;
+  opacity: 0;
+  transition: all ease .25s;
+  background-color: #ffffff88;
+ 
+}
+
+.user-name:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.user-avi {
+    width: 75px;
+    margin: 0 1vw;
+}
+/* 
+.user-avi:hover {
+    opacity: .5;
+} */
+
+.add-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+}
+
+.add-friend {}

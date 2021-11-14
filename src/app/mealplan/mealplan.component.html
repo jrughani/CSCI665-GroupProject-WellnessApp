@@ -102,6 +102,42 @@
   </div>
 </div>
 
+<div id="sub-container">
+  <div id="sub-recipe-container">
+    <main id="sub-recipe-container">
+      <section>
+        test
+      </section>
+    </main>
+  </div>
+
+  <div id="friendlist-container-title">
+    <section id="title">
+      <h1>Suggested Friends</h1>
+    </section>
+    <div id="friendlist-container">
+      <main id="friendlist-inner">
+        <section
+          (click)="addFriend(user)"
+          class="friendlist-item"
+          *ngFor="let user of usersList"
+        >
+          <button class="add-button">
+            <p class="user-name">{{ user.userName }}</p>
+            <div>
+              <img
+                class="user-avi"
+                src="/assets/img/defaultAvatar.svg"
+                alt=""
+              />
+            </div>
+          </button>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="isMealPlan; else none" id="meal-container">
   <div id="overlay-background"></div>
   <div id="generated-mealplan-bordering">
@@ -174,10 +210,5 @@
   </div>
 </div>
 <ng-template #none>
-  <div *ngFor="let user of usersList">
-    <p>{{ user.userName }}</p>
-    <button (click)="addFriend(user)">add friend</button>
-  </div>
-
   Please generate meal plan
 </ng-template>

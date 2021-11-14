@@ -55,38 +55,37 @@ export class MealplanComponent implements OnInit {
   ngOnInit() {
     this.fAuth.authState.subscribe(user => {   
       this.user = user            
-      console.log(this.user.email)
+      console.log("user email",this.user.email)
       // Algorithm below fetches user likes
       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
         ss.docs.forEach((doc) => {
           this.userLikes.push(doc.data());
-          console.log(this.userLikes)
+          console.log("user likes",this.userLikes)
         });
       });
       // Algorithm below fetches user friends
       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
         ss.docs.forEach((doc) => {
           this.userFriends.push(doc.data());
-          console.log(this.userFriends)
+          console.log("user friends",this.userFriends)
         });
       });
 
       this.fireStore.collection('/users').get().subscribe((ss) => {
         ss.docs.forEach((email) => {
           this.usersList.push(email.data());
+          console.log("user list",this.userFriends)
         });
       });
 
-      const shuffled = this.users.sort(() => 0.5 - Math.random());
-      var selected = shuffled.slice(0, 4);
-      console.log(selected)
-      console.log(this.users)
+      // const shuffled = this.users.sort(() => 0.5 - Math.random());
+      // var selected = shuffled.slice(0, 4);
+      // console.log(selected)
+      // console.log(this.users)
 
 
   });
     
-    console.log(this.timeFrame)
-
     this.service.getRandomMeals().then((res) => {
       // Results response is set to our observable or whatever they're called
       this.randomMealsResult = res;
@@ -102,16 +101,7 @@ export class MealplanComponent implements OnInit {
         this.randomMeals= this.randomMealsResult.recipes.map((recipe:any)=> recipe)
         console.log(this.randomMeals)
       // Making an object for better readability/deconstruction
-    
     })
-
-
-    // this.service.getUsers().then((res) => {
-    //   this.results = res
-    //   console.log(this.results)
-    // })
-
-    
   }
 
   setTimeFrame(e): void {
