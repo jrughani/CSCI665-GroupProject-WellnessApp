@@ -4,6 +4,23 @@
     font-family: 'Montserrat', sans-serif;
  
 }
+
+  div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #FF9D48;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+  
+  div::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+  
+  div::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    -webkit-box-shadow: inset 0 0 6px #FF9D48;
+    background-color: #FF9D48;
+  }
 body {
     height: 100vh;
 }
@@ -23,9 +40,24 @@ hr {
     margin: 12px;
 }
 
+a {
+    text-decoration: none;
+}
+
 #title-container {
     display: flex;
     flex-flow: row;
+}
+
+#title {
+    border: 1px solid #FF9D48;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title h1 {
+    margin: 0;
 }
 
 #title-left {
@@ -54,6 +86,13 @@ margin-top: 1vw;
 }
 
 
+#sub-container {
+    margin-top: 1vw;
+     display: flex;
+     flex-flow: row;
+    }
+    
+
 
 
 #large-recipe-container {
@@ -62,22 +101,32 @@ margin-top: 1vw;
    flex: 2;
 }
 
+#sub-recipe-container {
+    display: flex;
+    flex-flow: row;
+    flex: 2;
+ }
+ 
 
 #large-recipe-section {
 flex: 1;
 border-right: 6px solid white;
 }
 
+#sub-recipe-section {
+    flex: 1;
+    border-right: 6px solid white;
+}
+
 #large-recipe-section a {
     flex: 1;
-    text-decoration: none;
     }
     
 
 .random-meals {
-  
     border-radius: 1vw;
     display: flex;
+    flex-flow: column;
     flex: 1;
     min-height: 100%;
     max-height: 100%;
@@ -87,12 +136,10 @@ border-right: 6px solid white;
     background-size: cover;
     background-position: center center;
     background-blend-mode: overlay;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.random-meals article {
-    align-self: flex-end;
-}
+
 
 .random-meals h2 {
     font-family: 'Satisfy', cursive;
@@ -109,6 +156,20 @@ border-right: 6px solid white;
     margin: 0 0 6px 6px;
 }
 
+.heart-container {
+    display: flex;
+    justify-content: end;
+}
+
+.heart-button {
+    background: none;
+    border: none;
+}
+
+.heart-img {
+    margin: 1vw;
+    height: 3vw;
+}
 
 
 /* #large-recipe-section img {
@@ -275,7 +336,97 @@ button:disabled {
     flex: 1;
 }
 
+#mealplan-nutrients {
+    padding: 0 1vw;
+    background-color: #FF9D48;
+    display: flex;
+    flex-flow: row;
+    flex: 2;
+    position: absolute;
+    z-index: 1;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+    border-radius: .5vw;
+}
+
+#mealplan-nutrients p {
+    color: white;
+    font-size: 2vw;
+    font-weight: 800;
+}
+
 #close {
     text-align: end;
     border: none;
 }
+
+#full-friend-container {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+}
+
+#friendlist-container-title {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+}
+
+#friendlist-container {
+    overflow: auto;
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    border: 1px solid #FF9D48;
+}
+
+#friendlist-inner {
+    padding: 1vw 0;
+    display: flex;
+    flex-flow: row;
+
+}
+
+.friendlist-item {
+margin: auto;
+position: relative;
+}
+
+.user-name {
+  position: absolute;
+  font-size: 1vw;
+  opacity: 0;
+  transition: all ease .25s;
+  background-color: #ffffff88;
+ 
+}
+
+.user-name:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.user-avi {
+    width: 75px;
+    margin: 0 1vw;
+}
+/* 
+.user-avi:hover {
+    opacity: .5;
+} */
+
+.add-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+}
+
+.add-friend {}

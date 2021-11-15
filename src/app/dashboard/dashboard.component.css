@@ -126,3 +126,47 @@
 .search-recipe-title {
     
 }
+
+#like-main-container {
+
+}
+
+#like-inner-container {
+  
+}
+
+.like-container {
+    width: 20%;
+    margin: auto;
+    display: inline-block;
+    
+}
+
+.like-container h2 {
+    margin-left: 12px;
+width: 90%;
+  font-size: 1.1vw;
+  color: #ffffff;
+}
+
+.recipe-img {
+width: 100%;
+}
+
+.like-container article {
+margin: 1vw;    
+}
+
+.like-container aside {
+    padding: .25vw 0;
+background-color: #FF9D48;
+}
+
+.like-container div {
+   display: flex;
+   flex-flow: row;
+}
+
+.filled-heart {
+    margin-right: 12px;
+}
