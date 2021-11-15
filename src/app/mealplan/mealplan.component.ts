@@ -56,13 +56,6 @@ export class MealplanComponent implements OnInit {
     this.fAuth.authState.subscribe(user => {   
       this.user = user            
       console.log("user email",this.user.email)
-      // Algorithm below fetches user likes
-      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
-        ss.docs.forEach((doc) => {
-          this.userLikes.push(doc.data());
-          console.log("user likes",this.userLikes)
-        });
-      });
       // Algorithm below fetches user friends
       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
         ss.docs.forEach((doc) => {

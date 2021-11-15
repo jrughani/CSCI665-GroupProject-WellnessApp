@@ -15,43 +15,21 @@
         </button>
       </li>
       <li>
-        <button
-          [class.active]="searchQuery === 'Breakfast'"
-          (click)="setQuery($event.target)"
-          class="query-button"
-        >
-          Breakfast
-        </button>
-      </li>
-      <li>
-        <button
-          [class.active]="searchQuery === 'Lunch'"
-          (click)="setQuery($event.target)"
-          class="query-button"
-        >
-          Lunch
-        </button>
-      </li>
-      <li>
-        <button
-          [class.active]="searchQuery === 'Dinner'"
-          (click)="setQuery($event.target)"
-          class="query-button"
-        >
-          Dinner
+        <button class="query-button">
+          <img src="./assets/img/filledHeart.svg" alt="" />
         </button>
       </li>
     </ul>
   </div>
 </main>
 
-<div id="main-container">
-  <div id="large-recipe-container">
+<div>
+  <div>
     <main
-      id="large-recipe-section"
+      class="like-container"
       *ngFor="let recipe of recipeList; let i = index"
     >
-      <a [href]="recipeLinks[i]">
+      <!-- <a [href]="recipeLinks[i]">
         <section
           class="search-meals"
           [style.backgroundImage]="
@@ -63,9 +41,50 @@
       </a>
       <article class="recipe-sub">
         <h2>{{ recipe.title }}</h2>
-        <!-- <h3>{{ recipe.missedIngredients }}</h3> -->
+      </article> -->
+
+      <article>
+        <a [href]="recipeLinks[i]">
+          <img class="recipe-img" [src]="recipe.image" alt="" />
+        </a>
+        <aside>
+          <div>
+            <h2>{{ recipe.title.substring(0, 21) }}...</h2>
+            <img
+              (click)="getLike(recipe)"
+              class="filled-heart"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            />
+          </div>
+          <h2>{{ recipe.servings }} servings</h2>
+        </aside>
       </article>
     </main>
   </div>
 </div>
 <app-mealplan></app-mealplan>
+
+<div>
+  <main id="like-inner-container">
+    <section class="like-container" *ngFor="let like of userLikes">
+      <article>
+        <a [href]="like.spoonurl">
+          <img class="recipe-img" [src]="like.image" alt="" />
+        </a>
+        <aside>
+          <div>
+            <h2>{{ like.title.substring(0, 21) }}...</h2>
+            <img
+              (click)="dislike(like)"
+              class="filled-heart"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            />
+          </div>
+          <h2>{{ like.servings }} servings</h2>
+        </aside>
+      </article>
+    </section>
+  </main>
+</div>

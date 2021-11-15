@@ -20,17 +20,29 @@ export class DashboardComponent implements OnInit {
   recipeLinks:any=[];
   ingredients:any=[];
   user:any=[]
-
+  userLikes:any=[];
+  likesId:any=[];
+  recipe:any=[];
   
   constructor( private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.fAuth.authState.subscribe(user => {   
       this.user = user            
-      console.log(this.user.uid)
+      console.log("user email",this.user.email)
+      // Algorithm below fetches user likes
+      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+        ss.docs.forEach((doc) => {
+    
+          this.userLikes.push(doc.data());
+        
+          // console.log("user likes",this.userLikes)
+ 
+        });
+      });
   });
-// Do not use .set because it overwrites everything so please use .update
-  
+ 
+
   }
 
   fireStoreTest() {
@@ -79,6 +91,54 @@ getLinks() {
   this.recipeList.map((recipe:any) =>  
   (this.recipeLinks.push(`https://spoonacular.com/recipes/${recipe.title.split(' ').join('-')}-${recipe.id}`)))
   console.log(this.recipeLinks)
+}
+
+getLike(e) {
+  console.log(e)
+  let email = this.user.email.toLowerCase();
+
+  
+
+  return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
+      this.recipe = data
+
+      this.fireStore.doc('/users/' + email + '/likes/' + this.recipe.title)                        
+      .set({
+        id: this.recipe.id,
+        title: this.recipe.title,
+        image: this.recipe.image,
+        servings: this.recipe.servings,
+        spoonurl: `https://spoonacular.com/recipes/${this.recipe.title.split(' ').join('-')}-${this.recipe.id}` ,
+        sourceurl: this.recipe.sourceUrl,
+    });
+    })
+
+  // let recipeTitle = e.title;
+
+  // this.fireStore.doc('/users/' + email + '/likes/' + recipeTitle)                        
+  //           .set({
+  //             id: e.id,
+  //             title: e.title,
+  //             image: e.image,
+  //             servings: e.servings,
+  //             spoonurl: `https://spoonacular.com/recipes/${e.title.split(' ').join('-')}-${e.id}` ,
+  //             sourceurl: e.sourceUrl,
+  //         });
+}
+
+dislike(e) {
+console.log(e)
+this.userLikes = []
+const email = this.user.email
+  this.fireStore.doc('/users/' + email + '/likes/' + e.title)                        
+              .delete()
+
+              this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+                ss.docs.forEach((doc) => {
+                  this.userLikes.push(doc.data());
+                  console.log("user likes",this.userLikes)
+                });
+              });
 }
   
 }
