@@ -132,7 +132,7 @@ this.userLikes = []
 const email = this.user.email
   this.fireStore.doc('/users/' + email + '/likes/' + e.title)                        
               .delete()
-
+              alert( e.title);
               this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
                 ss.docs.forEach((doc) => {
                   this.userLikes.push(doc.data());
