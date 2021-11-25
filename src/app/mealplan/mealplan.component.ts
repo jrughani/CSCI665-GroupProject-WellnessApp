@@ -43,6 +43,7 @@ export class MealplanComponent implements OnInit {
   usersList:any=[];
   userLikes:any=[];
   userFriends:any=[];
+  userFriendsFood:any=[];
 
   constructor(private service: DataService, private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
     this.isMealPlan = false
@@ -57,19 +58,32 @@ export class MealplanComponent implements OnInit {
       this.user = user            
       console.log("user email",this.user.email)
       // Algorithm below fetches user friends
-      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
-        ss.docs.forEach((doc) => {
+       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
+        ss.docs.forEach((doc, index) => {
           this.userFriends.push(doc.data());
           console.log("user friends",this.userFriends)
+          console.log("user friends",this.userFriends[index].email)
+         
+
+          this.fireStore.collection('/users/' + this.userFriends[index].email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+            ss.docs.forEach((doc) => {
+              this.userFriendsFood.push(doc.data())
+              console.log(doc.data())
+            })
+          })
+
         });
+        
       });
 
       this.fireStore.collection('/users').get().subscribe((ss) => {
         ss.docs.forEach((email) => {
           this.usersList.push(email.data());
-          console.log("user list",this.userFriends)
+          // console.log("user list",this.userFriends)
+          // console.log("user friend email",this.userFriends.email)
         });
       });
+
 
       // const shuffled = this.users.sort(() => 0.5 - Math.random());
       // var selected = shuffled.slice(0, 4);
@@ -95,6 +109,11 @@ export class MealplanComponent implements OnInit {
         console.log(this.randomMeals)
       // Making an object for better readability/deconstruction
     })
+  }
+
+  async recommendRecipes() {
+    console.log()
+    console.log(this.usersList)
   }
 
   setTimeFrame(e): void {
