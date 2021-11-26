@@ -23,8 +23,13 @@ export class DashboardComponent implements OnInit {
   userLikes:any=[];
   likesId:any=[];
   recipe:any=[];
+  isLikes:any;
+  isClicked:any;
   
-  constructor( private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) { }
+  constructor( private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
+    this.isLikes = false
+    this.isClicked = true
+   }
 
   ngOnInit(): void {
     this.fAuth.authState.subscribe(user => {   
@@ -97,7 +102,8 @@ getLike(e) {
   console.log(e)
   let email = this.user.email.toLowerCase();
 
-  
+  this.userLikes.push(e)
+  console.log(this.userLikes)
 
   return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
       this.recipe = data
@@ -127,6 +133,27 @@ const email = this.user.email
                   console.log("user likes",this.userLikes)
                 });
               });
+}
+
+showLikes() {
+  this.isLikes = true
+  this.isClicked = false
+  this.userLikes = []
+  // console.log(this.userLikes)
+  this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+    ss.docs.forEach((doc) => {
+
+      this.userLikes.push(doc.data());
+    
+      // console.log("user likes",this.userLikes)
+
+    });
+  });
+}
+
+showHome() {
+  this.isLikes = false
+  this.isClicked = true
 }
   
 }

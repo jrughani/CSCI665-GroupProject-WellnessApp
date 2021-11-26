@@ -15,9 +15,18 @@
         </button>
       </li>
       <li>
-        <button class="query-button">
+        <button
+          *ngIf="isClicked; else homeButton"
+          (click)="showLikes()"
+          class="query-button"
+        >
           <img src="./assets/img/filledHeart.svg" alt="" />
         </button>
+        <ng-template #homeButton>
+          <button (click)="showHome()" class="query-button">
+            Home
+          </button>
+        </ng-template>
       </li>
     </ul>
   </div>
@@ -29,20 +38,6 @@
       class="like-container"
       *ngFor="let recipe of recipeList; let i = index"
     >
-      <!-- <a [href]="recipeLinks[i]">
-        <section
-          class="search-meals"
-          [style.backgroundImage]="
-            'url(' +
-            recipe.image +
-            '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
-          "
-        ></section>
-      </a>
-      <article class="recipe-sub">
-        <h2>{{ recipe.title }}</h2>
-      </article> -->
-
       <article>
         <a [href]="recipeLinks[i]">
           <img class="recipe-img" [src]="recipe.image" alt="" />
@@ -63,9 +58,11 @@
     </main>
   </div>
 </div>
-<app-mealplan></app-mealplan>
+<ng-template #showDash>
+  <app-mealplan></app-mealplan>
+</ng-template>
 
-<div>
+<div *ngIf="isLikes; else showDash">
   <main id="like-inner-container">
     <section class="like-container" *ngFor="let like of userLikes">
       <article>

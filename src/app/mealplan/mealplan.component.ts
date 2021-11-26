@@ -176,6 +176,8 @@ export class MealplanComponent implements OnInit {
     console.log(e)
     let email = this.user.email.toLowerCase();
   
+    this.userLikes.push(e)
+
     this.initUserLikes.push(e.title)
   
     return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
@@ -206,6 +208,9 @@ export class MealplanComponent implements OnInit {
   dislike(e) {
     console.log(e)
     this.userLikes = []
+
+    this.initUserLikes.splice(this.initUserLikes.indexOf(e.title), 1);
+    console.log(this.initUserLikes)
     const email = this.user.email
       this.fireStore.doc('/users/' + email + '/likes/' + e.title)                        
                   .delete()
