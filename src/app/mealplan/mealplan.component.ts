@@ -42,8 +42,11 @@ export class MealplanComponent implements OnInit {
   users: any=[];
   usersList:any=[];
   userLikes:any=[];
+  initUserLikes:any=[];
   userFriends:any=[];
   userFriendsFood:any=[];
+
+  recipe:any=[];
 
   constructor(private service: DataService, private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
     this.isMealPlan = false
@@ -57,6 +60,15 @@ export class MealplanComponent implements OnInit {
     this.fAuth.authState.subscribe(user => {   
       this.user = user            
       console.log("user email",this.user.email)
+
+      this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+        ss.docs.forEach((doc, index) => {
+          this.initUserLikes.push(doc.id);
+          console.log(index)
+          console.log("user likes",this.initUserLikes)
+        });
+        
+      });
       // Algorithm below fetches user friends
        this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
         ss.docs.forEach((doc, index) => {
@@ -89,8 +101,6 @@ export class MealplanComponent implements OnInit {
       // var selected = shuffled.slice(0, 4);
       // console.log(selected)
       // console.log(this.users)
-
-
   });
     
     this.service.getRandomMeals().then((res) => {
@@ -165,19 +175,23 @@ export class MealplanComponent implements OnInit {
   getLike(e) {
     console.log(e)
     let email = this.user.email.toLowerCase();
-    let recipeTitle = e.title;
-
-    this.fireStore.doc('/users/' + email + '/likes/' + recipeTitle)                        
-              .set({
-                id: e.id,
-                title: e.title,
-                image: e.image,
-                servings: e.servings,
-                spoonurl: `https://spoonacular.com/recipes/${e.title.split(' ').join('-')}-${e.id}` ,
-                sourceurl: e.sourceUrl,
-            });
+  
+    this.initUserLikes.push(e.title)
+  
+    return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
+        this.recipe = data
+  
+        this.fireStore.doc('/users/' + email + '/likes/' + this.recipe.title)                        
+        .set({
+          id: this.recipe.id,
+          title: this.recipe.title,
+          image: this.recipe.image,
+          servings: this.recipe.servings,
+          spoonurl: `https://spoonacular.com/recipes/${this.recipe.title.split(' ').join('-')}-${this.recipe.id}` ,
+          sourceurl: this.recipe.sourceUrl,
+      });
+      })
   }
-
   addFriend(e) {
     let email = this.user.email.toLowerCase();
     this.fireStore.doc('/users/' + email + '/friends/' + e.email.toLowerCase())                        
@@ -187,5 +201,28 @@ export class MealplanComponent implements OnInit {
             });
   }
 
+  
+
+  dislike(e) {
+    console.log(e)
+    this.userLikes = []
+    const email = this.user.email
+      this.fireStore.doc('/users/' + email + '/likes/' + e.title)                        
+                  .delete()
+    
+                  this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+                    ss.docs.forEach((doc) => {
+                      this.userLikes.push(doc.data());
+                      console.log("user likes",this.userLikes)
+                    });
+                  });
+    }
+
+
+test() {
+  console.log("running")
+  const check = this.initUserLikes.includes("Broccoli with cheese soup")
+  console.log(check)
+}
 
 }
