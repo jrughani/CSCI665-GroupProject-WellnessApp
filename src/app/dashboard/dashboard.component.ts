@@ -112,18 +112,6 @@ getLike(e) {
         sourceurl: this.recipe.sourceUrl,
     });
     })
-
-  // let recipeTitle = e.title;
-
-  // this.fireStore.doc('/users/' + email + '/likes/' + recipeTitle)                        
-  //           .set({
-  //             id: e.id,
-  //             title: e.title,
-  //             image: e.image,
-  //             servings: e.servings,
-  //             spoonurl: `https://spoonacular.com/recipes/${e.title.split(' ').join('-')}-${e.id}` ,
-  //             sourceurl: e.sourceUrl,
-  //         });
 }
 
 dislike(e) {
