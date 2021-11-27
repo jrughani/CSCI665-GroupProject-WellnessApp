@@ -21,10 +21,28 @@
         "
       >
         <aside class="heart-container">
+          <img
+            *ngIf="initUserLikes.includes(randomMeal.title); else dislikeBlock"
+            (click)="dislike(randomMeal)"
+            class="filled-heart-plan"
+            src="./assets/img/filledHeart.svg"
+            alt=""
+          />
+
+          <ng-template #dislikeBlock>
+            <img
+              (click)="getLike(randomMeal)"
+              class="filled-heart-plan"
+              src="./assets/img/heart.svg"
+              alt=""
+            />
+          </ng-template>
+        </aside>
+        <!-- <aside class="heart-container">
           <button (click)="getLike(randomMeal)" class="heart-button">
             <img class="heart-img" src="/assets/img/heart.svg" alt="" />
           </button>
-        </aside>
+        </aside> -->
         <article>
           <a [href]="randomMeal.spoonacularSourceUrl">
             <h2>{{ randomMeal.title }}</h2>

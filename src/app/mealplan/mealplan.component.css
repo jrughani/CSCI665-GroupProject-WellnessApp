@@ -169,6 +169,7 @@ border-right: 6px solid white;
 .heart-img {
     margin: 1vw;
     height: 3vw;
+    cursor: pointer;
 }
 
 
@@ -513,10 +514,12 @@ background-color: #FF9D48;
 
 .filled-heart {
     margin-right: 12px;
+    cursor: pointer;
 }
 
 .filled-heart-plan {
     height: 3vw;
     margin-top: 12px;
     margin-right: 12px;
+    cursor: pointer;
 }
