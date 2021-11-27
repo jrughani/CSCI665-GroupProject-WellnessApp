@@ -40,6 +40,7 @@
 }
 
 .query-button {
+    cursor: pointer;
     font-size: 21px;
     color: #FF9D48;
     background-color: #ffffff;
@@ -139,7 +140,6 @@
     width: 20%;
     margin: auto;
     display: inline-block;
-    
 }
 
 .like-container h2 {
@@ -168,5 +168,6 @@ background-color: #FF9D48;
 }
 
 .filled-heart {
+    cursor: pointer;
     margin-right: 12px;
 }

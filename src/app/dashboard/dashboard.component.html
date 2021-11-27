@@ -15,34 +15,29 @@
         </button>
       </li>
       <li>
-        <button class="query-button">
+        <button
+          *ngIf="isClicked; else homeButton"
+          (click)="showLikes()"
+          class="query-button"
+        >
           <img src="./assets/img/filledHeart.svg" alt="" />
         </button>
+        <ng-template #homeButton>
+          <button (click)="showHome()" class="query-button">
+            Home
+          </button>
+        </ng-template>
       </li>
     </ul>
   </div>
 </main>
 
-<div>
+<div *ngIf="isSearched">
   <div>
     <main
       class="like-container"
       *ngFor="let recipe of recipeList; let i = index"
     >
-      <!-- <a [href]="recipeLinks[i]">
-        <section
-          class="search-meals"
-          [style.backgroundImage]="
-            'url(' +
-            recipe.image +
-            '), linear-gradient(rgba(0,0,0,0),rgba(50,50,50,1))'
-          "
-        ></section>
-      </a>
-      <article class="recipe-sub">
-        <h2>{{ recipe.title }}</h2>
-      </article> -->
-
       <article>
         <a [href]="recipeLinks[i]">
           <img class="recipe-img" [src]="recipe.image" alt="" />
@@ -51,11 +46,27 @@
           <div>
             <h2>{{ recipe.title.substring(0, 21) }}...</h2>
             <img
-              (click)="getLike(recipe)"
+              *ngIf="userTitleLikes.includes(recipe.title); else dislikeBlock"
+              (click)="dislike(recipe)"
               class="filled-heart"
               src="./assets/img/filledHeart.svg"
               alt=""
             />
+
+            <ng-template #dislikeBlock>
+              <img
+                (click)="getLike(recipe)"
+                class="filled-heart"
+                src="./assets/img/heart.svg"
+                alt=""
+              />
+            </ng-template>
+            <!-- <img
+              (click)="getLike(recipe)"
+              class="filled-heart"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            /> -->
           </div>
           <h2>{{ recipe.servings }} servings</h2>
         </aside>
@@ -63,9 +74,12 @@
     </main>
   </div>
 </div>
-<app-mealplan></app-mealplan>
 
-<div>
+<ng-template #showDash>
+  <app-mealplan id="mealplan"></app-mealplan>
+</ng-template>
+
+<div *ngIf="isLikes; else showDash">
   <main id="like-inner-container">
     <section class="like-container" *ngFor="let like of userLikes">
       <article>
