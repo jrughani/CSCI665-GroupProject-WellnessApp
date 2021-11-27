@@ -78,7 +78,11 @@
             id="diet-plan"
           >
             <option value="vegetarian">Vegetarian</option>
-            <option value="vegetarian">Vegetarian</option>
+            <option value="ketogenic">Ketogenic</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegan">Pescetarian</option>
+            <option value="paleo">Paleo</option>
+            <option value="primal">Primal</option>
           </select>
           <p class="diet-sub">is my diet type</p>
           <p>and my allergens include:</p>
@@ -236,10 +240,28 @@
           "
         >
           <aside class="heart-container">
+            <img
+              *ngIf="initUserLikes.includes(planInfo.title); else dislikeBlock"
+              (click)="dislike(planInfo)"
+              class="filled-heart-plan"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            />
+
+            <ng-template #dislikeBlock>
+              <img
+                (click)="getLike(planInfo)"
+                class="filled-heart-plan"
+                src="./assets/img/heart.svg"
+                alt=""
+              />
+            </ng-template>
+          </aside>
+          <!-- <aside class="heart-container">
             <button (click)="getLike(planInfo)" class="heart-button">
               <img class="heart-img" src="/assets/img/heart.svg" alt="" />
             </button>
-          </aside>
+          </aside> -->
           <article>
             <a [href]="planInfo.spoonacularSourceUrl">
               <h2>{{ planInfo.title }}</h2>

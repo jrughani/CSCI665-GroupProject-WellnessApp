@@ -12,7 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  apiKey:string="3648a4ecfed843ffbf5d22382057b7a6";
+  apiKey:string="2748398f60524fc090d89b2009c9e4a1";
   // Results from get request
   searchQuery:string='';
   searchIngredients:string='';
@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   ingredients:any=[];
   user:any=[]
   userLikes:any=[];
+  userTitleLikes:any=[];
   likesId:any=[];
   recipe:any=[];
   isLikes:any;
@@ -37,10 +38,10 @@ export class DashboardComponent implements OnInit {
       console.log("user email",this.user.email)
       // Algorithm below fetches user likes
       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
-        ss.docs.forEach((doc) => {
+        ss.docs.forEach((doc, i) => {
     
           this.userLikes.push(doc.data());
-        
+        this.userTitleLikes.push(this.userLikes[i].title)
           // console.log("user likes",this.userLikes)
  
         });
@@ -70,10 +71,10 @@ export class DashboardComponent implements OnInit {
   }
 
   async searchRecipe() {
-    this.searchIngredients = this.searchIngredients.replace(",", ",+")
+    let searchIngredients = this.searchIngredients.replace(",", ",+")
     console.log(  this.searchIngredients)
 
-    return this.http.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.searchIngredients}&number=12&apiKey=${this.apiKey}`).toPromise().then((data) => {
+    return this.http.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${searchIngredients}&number=12&apiKey=${this.apiKey}`).toPromise().then((data) => {
     this.recipeList = data
     // this.recipeLinks.push(`${'-'+this.recipeList.id}${}`)
     
@@ -103,7 +104,9 @@ getLike(e) {
   let email = this.user.email.toLowerCase();
 
   this.userLikes.push(e)
+  this.userTitleLikes.push(e.title)
   console.log(this.userLikes)
+  console.log(this.userTitleLikes)
 
   return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
       this.recipe = data
@@ -124,6 +127,7 @@ dislike(e) {
 console.log(e)
 this.userLikes = []
 const email = this.user.email
+this.userTitleLikes.splice(this.userTitleLikes.indexOf(e.title), 1);
   this.fireStore.doc('/users/' + email + '/likes/' + e.title)                        
               .delete()
 

@@ -514,3 +514,9 @@ background-color: #FF9D48;
 .filled-heart {
     margin-right: 12px;
 }
+
+.filled-heart-plan {
+    height: 3vw;
+    margin-top: 12px;
+    margin-right: 12px;
+}

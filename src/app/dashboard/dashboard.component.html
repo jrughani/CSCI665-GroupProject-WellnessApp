@@ -46,11 +46,27 @@
           <div>
             <h2>{{ recipe.title.substring(0, 21) }}...</h2>
             <img
-              (click)="getLike(recipe)"
+              *ngIf="userTitleLikes.includes(recipe.title); else dislikeBlock"
+              (click)="dislike(recipe)"
               class="filled-heart"
               src="./assets/img/filledHeart.svg"
               alt=""
             />
+
+            <ng-template #dislikeBlock>
+              <img
+                (click)="getLike(recipe)"
+                class="filled-heart"
+                src="./assets/img/heart.svg"
+                alt=""
+              />
+            </ng-template>
+            <!-- <img
+              (click)="getLike(recipe)"
+              class="filled-heart"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            /> -->
           </div>
           <h2>{{ recipe.servings }} servings</h2>
         </aside>
