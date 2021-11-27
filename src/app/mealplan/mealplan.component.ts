@@ -201,6 +201,17 @@ export class MealplanComponent implements OnInit {
                 email: e.email,
                 userName: e.userName,
             });
+
+            this.userFriends = []
+
+            this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/friends/').get().subscribe((ss) => {
+              ss.docs.forEach((doc, index) => {
+                this.userFriends.push(doc.data());
+                console.log("user friends",this.userFriends)
+                console.log("user friends",this.userFriends[index].email)
+              });
+              
+            });
   }
 
   

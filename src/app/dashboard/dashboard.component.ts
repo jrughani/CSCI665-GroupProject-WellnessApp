@@ -26,10 +26,12 @@ export class DashboardComponent implements OnInit {
   recipe:any=[];
   isLikes:any;
   isClicked:any;
+  isSearched:any;
   
   constructor( private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
     this.isLikes = false
     this.isClicked = true
+    this.isSearched = false
    }
 
   ngOnInit(): void {
@@ -71,6 +73,17 @@ export class DashboardComponent implements OnInit {
   }
 
   async searchRecipe() {
+    // document.getElementById("searched").style.display = "block"
+    // document.getElementById("mealplan").style.display = "none"
+
+    this.isSearched = true
+    
+let mealplan = document.getElementById("mealplan")
+    if (this.searchIngredients.length > 0) {
+mealplan.style.display = "none"
+    } else mealplan.style.display = "block"
+    
+
     let searchIngredients = this.searchIngredients.replace(",", ",+")
     console.log(  this.searchIngredients)
 
@@ -140,6 +153,10 @@ this.userTitleLikes.splice(this.userTitleLikes.indexOf(e.title), 1);
 }
 
 showLikes() {
+  // document.getElementById("searched").style.display = "none"
+
+  this.isSearched = false
+
   this.isLikes = true
   this.isClicked = false
   this.userLikes = []
@@ -156,6 +173,9 @@ showLikes() {
 }
 
 showHome() {
+  // document.getElementById("searched").style.display = "none"
+  this.isSearched = false
+
   this.isLikes = false
   this.isClicked = true
 }

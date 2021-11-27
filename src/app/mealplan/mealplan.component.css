@@ -285,6 +285,7 @@ border-right: 6px solid white;
     border-radius: 2vw;
     padding: .5vw 2vw;
     transition: all 1s ease;
+    cursor: pointer;
 }
 
 button:disabled {

@@ -32,7 +32,7 @@
   </div>
 </main>
 
-<div>
+<div *ngIf="isSearched">
   <div>
     <main
       class="like-container"
@@ -74,8 +74,9 @@
     </main>
   </div>
 </div>
+
 <ng-template #showDash>
-  <app-mealplan></app-mealplan>
+  <app-mealplan id="mealplan"></app-mealplan>
 </ng-template>
 
 <div *ngIf="isLikes; else showDash">
