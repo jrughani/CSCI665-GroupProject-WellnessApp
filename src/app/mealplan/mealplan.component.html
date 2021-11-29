@@ -7,6 +7,8 @@
   </section>
 </div>
 
+<!-- <button (click)="test()">TEST</button> -->
+
 <div id="main-container">
   <div id="large-recipe-container">
     <main id="large-recipe-section" *ngFor="let randomMeal of randomMeals">
@@ -19,10 +21,28 @@
         "
       >
         <aside class="heart-container">
+          <img
+            *ngIf="initUserLikes.includes(randomMeal.title); else dislikeBlock"
+            (click)="dislike(randomMeal)"
+            class="filled-heart-plan"
+            src="./assets/img/filledHeart.svg"
+            alt=""
+          />
+
+          <ng-template #dislikeBlock>
+            <img
+              (click)="getLike(randomMeal)"
+              class="filled-heart-plan"
+              src="./assets/img/heart.svg"
+              alt=""
+            />
+          </ng-template>
+        </aside>
+        <!-- <aside class="heart-container">
           <button (click)="getLike(randomMeal)" class="heart-button">
             <img class="heart-img" src="/assets/img/heart.svg" alt="" />
           </button>
-        </aside>
+        </aside> -->
         <article>
           <a [href]="randomMeal.spoonacularSourceUrl">
             <h2>{{ randomMeal.title }}</h2>
@@ -76,7 +96,11 @@
             id="diet-plan"
           >
             <option value="vegetarian">Vegetarian</option>
-            <option value="vegetarian">Vegetarian</option>
+            <option value="ketogenic">Ketogenic</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegan">Pescetarian</option>
+            <option value="paleo">Paleo</option>
+            <option value="primal">Primal</option>
           </select>
           <p class="diet-sub">is my diet type</p>
           <p>and my allergens include:</p>
@@ -102,14 +126,60 @@
   </div>
 </div>
 
-<div id="sub-container">
-  <div id="sub-recipe-container">
+<div id="full-rec-container">
+  <div id="rec-container-title">
+    <section id="rec-title">
+      <h1>Friend Favorites</h1>
+    </section>
+    <div id="rec-container">
+      <main id="rec-inner">
+        <section
+          class="like-container"
+          *ngFor="let recipe of userFriendsFood; let i = index"
+          [attr.data-index]="i"
+        >
+          <article>
+            <a [href]="recipe.spoonurl">
+              <img class="recipe-img" [src]="recipe.image" alt="" />
+            </a>
+            <aside>
+              <div>
+                <h2>{{ recipe.title.substring(0, 21) }}...</h2>
+                <img
+                  *ngIf="
+                    initUserLikes.includes(recipe.title);
+                    else dislikeBlock
+                  "
+                  (click)="dislike(recipe)"
+                  class="filled-heart"
+                  src="./assets/img/filledHeart.svg"
+                  alt=""
+                />
+
+                <ng-template #dislikeBlock>
+                  <img
+                    (click)="getLike(recipe)"
+                    class="filled-heart"
+                    src="./assets/img/heart.svg"
+                    alt=""
+                  />
+                </ng-template>
+              </div>
+              <h2>{{ recipe.servings }} servings</h2>
+            </aside>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- <div id="sub-recipe-container">
     <main id="sub-recipe-container">
-      <section>
-        test
+      <section *ngFor="let recipe of userFriendsFood">
+        {{ recipe.title }}
       </section>
     </main>
-  </div>
+  </div> -->
 
   <div id="full-friend-container">
     <div id="friendlist-container-title">
@@ -188,10 +258,28 @@
           "
         >
           <aside class="heart-container">
+            <img
+              *ngIf="initUserLikes.includes(planInfo.title); else dislikeBlock"
+              (click)="dislike(planInfo)"
+              class="filled-heart-plan"
+              src="./assets/img/filledHeart.svg"
+              alt=""
+            />
+
+            <ng-template #dislikeBlock>
+              <img
+                (click)="getLike(planInfo)"
+                class="filled-heart-plan"
+                src="./assets/img/heart.svg"
+                alt=""
+              />
+            </ng-template>
+          </aside>
+          <!-- <aside class="heart-container">
             <button (click)="getLike(planInfo)" class="heart-button">
               <img class="heart-img" src="/assets/img/heart.svg" alt="" />
             </button>
-          </aside>
+          </aside> -->
           <article>
             <a [href]="planInfo.spoonacularSourceUrl">
               <h2>{{ planInfo.title }}</h2>
@@ -233,6 +321,4 @@
     <section></section>
   </div>
 </div>
-<ng-template #none>
-  Please generate meal plan
-</ng-template>
+<ng-template #none></ng-template>

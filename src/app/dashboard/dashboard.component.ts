@@ -12,7 +12,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  apiKey: string = "3648a4ecfed843ffbf5d22382057b7a6";
+  apiKey: string = "2748398f60524fc090d89b2009c9e4a1";
   // Results from get request
   searchQuery: string = '';
   searchIngredients: string = '';
@@ -21,10 +21,18 @@ export class DashboardComponent implements OnInit {
   ingredients: any = [];
   user: any = []
   userLikes: any = [];
+  userTitleLikes: any = [];
   likesId: any = [];
   recipe: any = [];
+  isLikes: any;
+  isClicked: any;
+  isSearched: any;
 
-  constructor(private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) { }
+  constructor(private http: HttpClient, private fAuth: AngularFireAuth, private fireStore: AngularFirestore) {
+    this.isLikes = false
+    this.isClicked = true
+    this.isSearched = false
+  }
 
   ngOnInit(): void {
     this.fAuth.authState.subscribe(user => {
@@ -32,10 +40,10 @@ export class DashboardComponent implements OnInit {
       console.log("user email", this.user.email)
       // Algorithm below fetches user likes
       this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
-        ss.docs.forEach((doc) => {
+        ss.docs.forEach((doc, i) => {
 
           this.userLikes.push(doc.data());
-
+          this.userTitleLikes.push(this.userLikes[i].title)
           // console.log("user likes",this.userLikes)
 
         });
@@ -70,10 +78,21 @@ export class DashboardComponent implements OnInit {
   }
 
   async searchRecipe() {
-    this.searchIngredients = this.searchIngredients.replace(",", ",+")
+    // document.getElementById("searched").style.display = "block"
+    // document.getElementById("mealplan").style.display = "none"
+
+    this.isSearched = true
+
+    let mealplan = document.getElementById("mealplan")
+    if (this.searchIngredients.length > 0) {
+      mealplan.style.display = "none"
+    } else mealplan.style.display = "block"
+
+
+    let searchIngredients = this.searchIngredients.replace(",", ",+")
     console.log(this.searchIngredients)
 
-    return this.http.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${this.searchIngredients}&number=12&apiKey=${this.apiKey}`).toPromise().then((data) => {
+    return this.http.get(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${searchIngredients}&number=12&apiKey=${this.apiKey}`).toPromise().then((data) => {
       this.recipeList = data
       // this.recipeLinks.push(`${'-'+this.recipeList.id}${}`)
 
@@ -103,6 +122,10 @@ export class DashboardComponent implements OnInit {
     let email = this.user.email.toLowerCase();
 
 
+    this.userLikes.push(e)
+    this.userTitleLikes.push(e.title)
+    console.log(this.userLikes)
+    console.log(this.userTitleLikes)
 
     return this.http.get(`https://api.spoonacular.com/recipes/${e.id}/information?includeNutrition=false&apiKey=${this.apiKey}`).toPromise().then((data) => {
       this.recipe = data
@@ -117,24 +140,13 @@ export class DashboardComponent implements OnInit {
           sourceurl: this.recipe.sourceUrl,
         });
     })
-
-    // let recipeTitle = e.title;
-
-    // this.fireStore.doc('/users/' + email + '/likes/' + recipeTitle)                        
-    //           .set({
-    //             id: e.id,
-    //             title: e.title,
-    //             image: e.image,
-    //             servings: e.servings,
-    //             spoonurl: `https://spoonacular.com/recipes/${e.title.split(' ').join('-')}-${e.id}` ,
-    //             sourceurl: e.sourceUrl,
-    //         });
   }
 
   dislike(e) {
     console.log(e)
     this.userLikes = []
     const email = this.user.email
+    this.userTitleLikes.splice(this.userTitleLikes.indexOf(e.title), 1);
     this.fireStore.doc('/users/' + email + '/likes/' + e.title)
       .delete()
     alert(e.title);
@@ -144,6 +156,34 @@ export class DashboardComponent implements OnInit {
         console.log("user likes", this.userLikes)
       });
     });
+  }
+
+  showLikes() {
+    // document.getElementById("searched").style.display = "none"
+
+    this.isSearched = false
+
+    this.isLikes = true
+    this.isClicked = false
+    this.userLikes = []
+    // console.log(this.userLikes)
+    this.fireStore.collection('/users/' + this.user.email.toLowerCase() + '/likes/').get().subscribe((ss) => {
+      ss.docs.forEach((doc) => {
+
+        this.userLikes.push(doc.data());
+
+        // console.log("user likes",this.userLikes)
+
+      });
+    });
+  }
+
+  showHome() {
+    // document.getElementById("searched").style.display = "none"
+    this.isSearched = false
+
+    this.isLikes = false
+    this.isClicked = true
   }
 
 }
