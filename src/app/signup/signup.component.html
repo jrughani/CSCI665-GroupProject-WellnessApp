@@ -1,9 +1,12 @@
-<p>signup</p>
-<div class="container-fluid">
+<div class="d-flex align-items-center" style="height: 700px;">
+  <div width="100%" style="margin-left: -10px;">
+    <img style="border-bottom-right-radius: 40px;height: 710px;" src="../../assets/img/feature-img/79780861.cms.webp">
+  </div>
+  <div class="d-flex justify-content-center" style="flex-grow: 3;">
     <form [formGroup]="signupForm">
-    
+
       <h3>Enter your information below</h3>
-      
+      <br />
       <div class="form-group">
         <label>Full Name:</label>
         <input type="text" class="form-control" formControlName="userName" />
@@ -16,8 +19,16 @@
         <label>Password:</label>
         <input type="password" class="form-control" formControlName="password" />
       </div>
-    
+
+      <div class="d-flex">
+        <div class=" mr-auto">
+          <button class="p-3 btn btn-secondary btn-lg theme-color" (click)="onSignup()">Signup</button>
+        </div>
+        <div class="d-flex p-3 align-items-center"><a class="theme-font underline" href="#" routerLink="/signin">Click
+            here
+            Login</a></div>
+      </div>
     </form>
-    <button (click)="onSignup()">Signup</button>
-    
+    <!-- <a routerLink="/dashboard"><button>dashboard</button></a> -->
+  </div>
 </div>
