@@ -1,0 +1,12 @@
+.header {
+    /* background: #f7f2eb; */
+    background: #ff9d48;
+    /* background: #f5f3f1; */
+    padding-top: 10px;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+.logo {
+    height: 105px;
+    width: 105px;
+}

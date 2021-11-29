@@ -1,11 +1,11 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 ::placeholder {
-    color: #C2C2C2;
+    color: #c2c2c2;
 }
 
 /* *** */
@@ -15,20 +15,32 @@
     display: flex;
     flex-direction: row;
 }
-
+.header {
+    padding-left: 150px;
+    padding-right: 150px;
+    width: 100%;
+}
+.logo {
+    height: 95px;
+    width: 95px;
+}
 .search-input {
     font-size: 21px;
     text-decoration: none;
-    padding: .5vw 4vw .5vw .5vw;
-    border: 2px solid #FF9D48;
+    padding: 0.5vw 4vw 0.5vw 0.5vw;
+    border: 2px solid #ff9d48;
     border-radius: 1vw;
     transition: all 1s ease;
 }
 
+.bk_color {
+    /* background: #f5f3f1; */
+    background: #ff9d48;
+}
 .search-input:focus {
     transition: all 1s ease;
     outline: none;
-    border: 2px solid #FF6E50;
+    border: 2px solid #ff6e50;
 }
 
 /* home filter button styling */
@@ -41,10 +53,10 @@
 #home-section button {
     font-size: 21px;
     color: white;
-    background-color: #FF9D48;
-    border: 2px solid #FF9D48;
+    background-color: #ff9d48;
+    border: 2px solid #ff9d48;
     border-radius: 1vw;
-    padding: .5vw 2vw 
+    padding: 0.5vw 2vw;
 }
 /* End of home CSS */
 /* *** */

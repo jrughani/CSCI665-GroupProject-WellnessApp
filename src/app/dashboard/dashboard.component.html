@@ -1,11 +1,7 @@
 <main id="nav-section">
   <section>
-    <input
-      [(ngModel)]="searchIngredients"
-      class="search-input"
-      type="text"
-      placeholder="Search by Ingredient, separate by comma"
-    />
+    <input [(ngModel)]="searchIngredients" class="search-input" type="text"
+      placeholder="Search by Ingredient, separate by comma" />
   </section>
   <div>
     <ul>
@@ -13,13 +9,9 @@
         <button (click)="searchRecipe()" id="search-button">
           Search
         </button>
-      </li>
+        <button (click)="onSignout()">Signout</button>
       <li>
-        <button
-          *ngIf="isClicked; else homeButton"
-          (click)="showLikes()"
-          class="query-button"
-        >
+        <button *ngIf="isClicked; else homeButton" (click)="showLikes()" class="query-button">
           <img src="./assets/img/filledHeart.svg" alt="" />
         </button>
         <ng-template #homeButton>
@@ -34,10 +26,7 @@
 
 <div *ngIf="isSearched">
   <div>
-    <main
-      class="like-container"
-      *ngFor="let recipe of recipeList; let i = index"
-    >
+    <main class="like-container" *ngFor="let recipe of recipeList; let i = index">
       <article>
         <a [href]="recipeLinks[i]">
           <img class="recipe-img" [src]="recipe.image" alt="" />
@@ -45,21 +34,11 @@
         <aside>
           <div>
             <h2>{{ recipe.title.substring(0, 21) }}...</h2>
-            <img
-              *ngIf="userTitleLikes.includes(recipe.title); else dislikeBlock"
-              (click)="dislike(recipe)"
-              class="filled-heart"
-              src="./assets/img/filledHeart.svg"
-              alt=""
-            />
+            <img *ngIf="userTitleLikes.includes(recipe.title); else dislikeBlock" (click)="dislike(recipe)"
+              class="filled-heart" src="./assets/img/filledHeart.svg" alt="" />
 
             <ng-template #dislikeBlock>
-              <img
-                (click)="getLike(recipe)"
-                class="filled-heart"
-                src="./assets/img/heart.svg"
-                alt=""
-              />
+              <img (click)="getLike(recipe)" class="filled-heart" src="./assets/img/heart.svg" alt="" />
             </ng-template>
             <!-- <img
               (click)="getLike(recipe)"
@@ -89,12 +68,7 @@
         <aside>
           <div>
             <h2>{{ like.title.substring(0, 21) }}...</h2>
-            <img
-              (click)="dislike(like)"
-              class="filled-heart"
-              src="./assets/img/filledHeart.svg"
-              alt=""
-            />
+            <img (click)="dislike(like)" class="filled-heart" src="./assets/img/filledHeart.svg" alt="" />
           </div>
           <h2>{{ like.servings }} servings</h2>
         </aside>
